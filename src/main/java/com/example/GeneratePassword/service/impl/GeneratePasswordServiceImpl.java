@@ -2,13 +2,16 @@ package com.example.GeneratePassword.service.impl;
 
 import com.example.GeneratePassword.dto.GeneratePasswordDTO;
 import com.example.GeneratePassword.service.GeneratePasswordService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GeneratePasswordServiceImpl implements GeneratePasswordService {
+    private final List<String> list;
     private static final StringBuilder password = new StringBuilder();
 
     @Override
@@ -27,12 +30,12 @@ public class GeneratePasswordServiceImpl implements GeneratePasswordService {
     }
 
     @Override
-    public void save(String password) {
-
+    public void save() {
+        list.add(password.toString());
     }
 
     @Override
     public List<String> history() {
-        return List.of();
+        return list;
     }
 }
