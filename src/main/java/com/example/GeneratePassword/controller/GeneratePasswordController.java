@@ -1,5 +1,7 @@
 package com.example.GeneratePassword.controller;
 
+import com.example.GeneratePassword.dto.GeneratePasswordDTO;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +17,7 @@ public class GeneratePasswordController {
     }
 
     @PostMapping("/generatePassword")
-    public String generatePassword() {
+    public String generatePassword(@Valid GeneratePasswordDTO dto) {
         return "redirect:/home";
     }
 
