@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface GeneratePasswordService {
     String generatePassword(GeneratePasswordDTO dto);
-    List<String> history();
-    void save();
+    List<List<String>> history();
+    List<String> getPassword();
 }

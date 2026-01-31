@@ -6,36 +6,44 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class GeneratePasswordServiceImpl implements GeneratePasswordService {
-    private final List<String> list;
-    private static final StringBuilder password = new StringBuilder();
+    private final List<List<String>> list;
+    public StringBuilder password;
 
     @Override
     public String generatePassword(GeneratePasswordDTO dto) {
+        password = new StringBuilder();
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom rn = new SecureRandom();
+        List<String> list1 = new LinkedList<>();
 
-        for (byte i = 0; i < Byte.parseByte(dto.getCountPassword()); i++) {
-            for (byte j = 0; j < Byte.parseByte(dto.getCountCharPassword()); j++) {
+        for (byte i = 0; i < dto.getCountPassword(); i++) {
+            for (byte j = 0; j < dto.getCountCharPassword(); j++) {
                 int index = rn.nextInt(chars.length());
                 password.append(chars.charAt(index));
             }
+
+            list1.add(password.toString());
+            password = new StringBuilder();
         }
+
+        list.add(list1);
 
         return password.toString();
     }
 
     @Override
-    public void save() {
-        list.add(password.toString());
+    public List<List<String>> history() {
+        return list;
     }
 
     @Override
-    public List<String> history() {
-        return list;
+    public List<String> getPassword() {
+        return list.get(list.size() - 1);
     }
 }

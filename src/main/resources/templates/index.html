@@ -2,18 +2,39 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>GeneratePassword</title>
+    <title>Генератор паролей</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<form th:method="POST">
-    <label for="countPassword">Укажите количество паролей: </label>
-    <input type="number" id="countPassword" name="countPassword" min="1" max="5" placeholder="min 1, max 5" required><br>
 
-    <label for="countCharPassword">Укажите длину пароля: </label>
-    <input type="number" id="countCharPassword" name="countCharPassword" min="8" max="16" placeholder="min 8, max 16" required><br>
+<div class="container">
+    <h2>Password Gen</h2>
+    <form th:method="POST" th:action="@{/generatePassword}">
+        <label for="countPassword">Количество паролей (1-5):</label>
+        <input type="number" id="countPassword" name="countPassword" min="1" max="5" value="1" required>
 
-    <button type="submit" formaction="/generatePassword">Сгенерировать пароль</button>
-    <button type="submit" formaction="/history">Просмотреть историю паролей</button>
-</form>
+        <label for="countCharPassword">Длина пароля (8-16):</label>
+        <input type="number" id="countCharPassword" name="countCharPassword" min="8" max="16" value="8" required>
+
+        <button type="submit" class="btn-generate">Сгенерировать новый</button>
+    </form>
+
+    <form th:method="POST" th:action="@{/history}">
+        <button type="submit" class="btn-history">Показать историю</button>
+    </form>
+
+    <div th:if="${password}" class="result-box">
+        <div th:each="oldPassword : ${password}" class="history-item">
+            <span th:text="${oldPassword}"></span>
+        </div>
+    </div>
+
+    <div th:if="${historyList}" class="history-container">
+        <label>Последние пароли:</label>
+        <div th:each="oldPassword : ${historyList}" class="history-item">
+            <span th:text="${oldPassword}"></span>
+        </div>
+    </div>
+</div>
 </body>
 </html>

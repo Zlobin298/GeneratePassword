@@ -1,16 +1,19 @@
 package com.example.GeneratePassword.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class GeneratePasswordDTO {
-    @NotBlank(message = "Поле количество паролей не может быть пустым")
-    @Size(min = 1, max = 5, message = "Укажите допустимый диапазон")
-    private String countPassword;
+    @NotNull(message = "Поле количество паролей не может быть пустым")
+    @Min(value = 1, message = "Минимум 1 символов")
+    @Max(value = 5, message = "Максимум 5 символа")
+    private Byte countPassword;
 
-    @NotBlank(message = "Поле длина пароля не может быть пустым")
-    @Size(min = 8, max = 8, message = "Укажите допустимый диапазон")
-    private String countCharPassword;
+    @NotNull(message = "Поле длина пароля не может быть пустым")
+    @Min(value = 8, message = "Минимум 8 символов")
+    @Max(value = 16, message = "Максимум 16 символа")
+    private Byte countCharPassword;
 }
