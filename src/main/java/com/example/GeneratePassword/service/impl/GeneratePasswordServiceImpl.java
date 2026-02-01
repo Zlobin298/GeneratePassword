@@ -16,7 +16,7 @@ public class GeneratePasswordServiceImpl implements GeneratePasswordService {
     public StringBuilder password;
 
     @Override
-    public String generatePassword(GeneratePasswordDTO dto) {
+    public void generatePassword(GeneratePasswordDTO dto) {
         password = new StringBuilder();
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom rn = new SecureRandom();
@@ -33,8 +33,6 @@ public class GeneratePasswordServiceImpl implements GeneratePasswordService {
         }
 
         list.add(list1);
-
-        return password.toString();
     }
 
     @Override
